@@ -1,0 +1,62 @@
+Day 3 1st Problem
+33. Search in Rotated Sorted Array
+
+code:-
+class Solution {
+public:
+    int search(vector<int>& arr, int target) {
+        
+        int start=0,end=arr.size()-1;
+        while(start<=end)
+        {
+           int mid = (start+end)/2;
+           //find Element 
+            if(arr[mid]==target)
+            return mid;
+            //right side sorted
+            else if(arr[mid]>=arr[0])
+            {
+                if(arr[start]<=target && arr[mid]>=target)
+                end=mid-1;
+                else
+                start=mid+1;
+            }
+            //Left side sorted
+            else {
+             // arr[mid]<=arr[0]
+            if(arr[mid]<=target && arr[end]>=target)
+            start=mid+1;
+            else
+            end=mid-1;
+            }
+        }
+        return -1;
+    }
+};
+
+2nd problem
+
+153. Find Minimum in Rotated Sorted Array
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        
+        int start=0,end=nums.size()-1,ans=nums[0];
+
+        while(start<=end)
+        {
+          int mid= start +(end-start)/2;
+            // Left side sorted array
+            if(nums[mid]>=nums[0])
+            start =mid+1;
+            //Right side sorted array
+            else
+            {
+                ans = nums[mid];
+                end =mid-1;
+            }
+        }
+        return ans;
+    }
+};
