@@ -1,0 +1,67 @@
+1539. Kth Missing Positive Number
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+
+        int start=0,end=arr.size()-1,ans=arr.size();
+                                    // ans=arr.size()  used for sorted array ans store
+        while(start<=end)
+        {
+         int mid = (start+end)/2;
+
+            if(arr[mid]-mid-1 >=k)
+            {
+                ans= mid;
+                end=mid-1;
+            }
+            else
+            start=mid+1;
+        }
+        return ans+k;  // For ans +k 
+        //              = arr[index]-[6-k+1]
+        //(k missing no = arr[index]-index-1-k+1)
+        //                  index +k  // ans(/mid) +k
+    }
+};
+
+2.Koko Eating Bananas(Q.N 875.)
+
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+       int start =0,end=0,ans,n=piles.size(),mid;
+        long long sum=0;
+       for(int i=0;i<n;i++)
+       {
+        sum+=piles[i];
+        end= max(end,piles[i]);
+       } 
+       start=sum/h;
+       if(!start)
+       start=1;
+       while(start<=end)
+       {
+        mid = start+(end-start)/2;
+        //mid amount of bananas to consume in 1 hour
+        int  total_time=0;
+        for(int i=0;i<n;i++)
+        {
+            total_time+=piles[i]/mid;
+            if(piles[i]%mid)
+            total_time++;
+        }
+
+        if(total_time>h)
+        {
+            start=mid+1;
+        }
+        else
+        {
+            ans =mid;
+            end =mid-1;
+        }
+       }
+       return ans;
+    }
+};
